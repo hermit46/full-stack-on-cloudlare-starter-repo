@@ -2,3 +2,5 @@
 .dist
 better-auth_migrations
 node_modules
+src/drizzle-out
+dist/
