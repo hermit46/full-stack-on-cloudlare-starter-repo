@@ -9,6 +9,7 @@ import {
   getLink,
   getLinks,
   updateLinkDestinations,
+  updateLinkName,
 } from "@repo/data-ops/queries/links";
 import { TRPCError } from "@trpc/server";
 import { ACTIVE_LINKS_LAST_HOUR, LAST_30_DAYS_BY_COUNTRY } from "./dummy-data";
@@ -41,6 +42,7 @@ export const linksTrpcRoutes = t.router({
     )
     .mutation(async ({ input }) => {
       console.log(input.linkId, input.name);
+      await updateLinkName(input.linkId, input.name);
     }),
   getLink: t.procedure
     .input(
