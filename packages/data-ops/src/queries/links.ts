@@ -6,8 +6,9 @@ import {
 } from "@/zod/links";
 import { getDb } from "@/db/database";
 import { nanoid } from "nanoid";
-import { links } from "@/drizzle-out/schema";
+import { linkClicks, links } from "@/drizzle-out/schema";
 import { and, desc, eq, gt } from "drizzle-orm";
+import { LinkClickMessageType } from "@/zod/queue";
 
 export async function createLink(
   data: CreateLinkSchemaType & { accountId: string }
@@ -101,4 +102,17 @@ export async function updateLinkDestinations(
       updated: new Date().toISOString(),
     })
     .where(eq(links.linkId, linkId));
+}
+
+export async function addLinkClick(info: LinkClickMessageType["data"]) {
+  const db = getDb();
+  await db.insert(linkClicks).values({
+    id: info.id,
+    accountId: info.accountId,
+    destination: info.destination,
+    country: info.country,
+    clickedTime: info.timestamp,
+    latitude: info.latitude,
+    longitude: info.longitude,
+  });
 }
