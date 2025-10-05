@@ -3,6 +3,7 @@ import { App } from './hono/app';
 import { initDatabase } from '@repo/data-ops/database';
 import { QueueMessageSchema } from '@repo/data-ops/zod-schema/queue';
 import { handleLinkClick } from './queue-handlers/link-clicks';
+export { DestinationEvaluationWorkflow } from '@/workflows/destination-evaluation-workflow';
 
 // This is the main entry point for the data service, handles incoming requests for the worker
 export default class DataService extends WorkerEntrypoint<Env> {
